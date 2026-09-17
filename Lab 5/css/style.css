@@ -1,0 +1,62 @@
+/* css/style.css — small custom styles on top of Bootstrap */
+
+body {
+  background-color: #f7f8fa;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(120deg, #1b3b6f 0%, #3d7bd6 100%);
+  color: #fff;
+  padding: 0.9rem 0;
+}
+.app-header__brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.app-header__nav a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  margin-left: 1.25rem;
+}
+.app-header__nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Right-hand detail panel */
+.detail-panel {
+  line-height: 1.6;
+}
+
+/* Job detail field grid */
+.job-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+.job-fields > div {
+  margin-bottom: 0.25rem;
+}
+.job-fields__wide {
+  grid-column: 1 / -1;
+}
+.job-fields dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #6c757d;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+.job-fields dd {
+  margin: 0;
+}
+
+@media (max-width: 575.98px) {
+  .job-fields {
+    grid-template-columns: 1fr;
+  }
+}

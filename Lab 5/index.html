@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insight Hire — Lab 05</title>
+
+  <!-- Local resources (no CDN) -->
+  <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- App root component mounts here -->
+  <div id="app"></div>
+
+  <!-- 1. Frameworks (local) -->
+  <script src="vendor/vue.global.js"></script>
+  <script src="vendor/vue-router.global.js"></script>
+  <script src="vendor/bootstrap.bundle.min.js"></script>
+
+  <!-- 2. Data -->
+  <script src="js/data/jobs.js"></script>
+
+  <!-- 3. Components (must load before the router / App that use them) -->
+  <script src="js/components/JobOverview.js"></script>
+  <script src="js/components/JobList.js"></script>
+  <script src="js/components/JobDetail.js"></script>
+  <script src="js/components/ToDoList.js"></script>
+
+  <!-- 4. Router (uses JobOverview + JobDetail) -->
+  <script src="js/router.js"></script>
+
+  <!-- 5. Root component (uses JobList + ToDoList) -->
+  <script src="js/components/App.js"></script>
+
+  <!-- 6. Entry point (uses App + router) -->
+  <script src="js/main.js"></script>
+</body>
+</html>
