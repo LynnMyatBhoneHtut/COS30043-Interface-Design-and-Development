@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guessing Game</title>
+
+  <!-- Requirement 1: Vue 3 script -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      color: #1f2937;
+    }
+
+    #app {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 28px 32px;
+      width: 100%;
+      max-width: 460px;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 32px;
+      color: #1e3a5f;
+    }
+
+    label { margin-right: 8px; }
+
+    .range { color: #2563eb; }
+
+    input[type="number"] {
+      padding: 6px 8px;
+      width: 110px;
+      border: 1px solid #9ca3af;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .buttons { margin: 18px 0 14px; }
+
+    button {
+      padding: 7px 14px;
+      margin-right: 8px;
+      font-size: 15px;
+      border: 1px solid #9ca3af;
+      border-radius: 4px;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) { background: #e5e7eb; }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .message {
+      font-size: 18px;
+      font-weight: 600;
+      min-height: 26px;
+      margin-bottom: 10px;
+    }
+
+    .win    { color: #15803d; }
+    .lose   { color: #b91c1c; }
+    .hint   { color: #1e3a5f; }
+
+    .attempts { margin-bottom: 12px; }
+
+    ul.guess-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    ul.guess-list li {
+      background: #e5e7eb;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Requirement 2: the view -->
+  <div id="app">
+    <h1>Number Guessing Game</h1>
+
+    <!-- User input -->
+    <div>
+      <label for="guess">
+        Enter your guess from <span class="range">1</span> to <span class="range">100</span>:
+      </label>
+      <input
+        type="number"
+        id="guess"
+        v-model.number="guess"
+        :disabled="gameOver"
+        @keyup.enter="checkGuess"
+        min="1"
+        max="100">
+    </div>
+
+    <!-- Three buttons -->
+    <div class="buttons">
+      <button @click="checkGuess" :disabled="gameOver">Check Guess</button>
+      <button @click="giveUp" :disabled="gameOver">Give Up</button>
+      <button @click="startOver">Start Over</button>
+    </div>
+
+    <!-- Messages -->
+    <p class="message" :class="messageClass">{{ message }}</p>
+
+    <!-- Requirement 4: remaining attempts -->
+    <p class="attempts">Attempts left: {{ attemptsLeft }}</p>
+
+    <!-- Requirement 5: list of guesses rendered with v-for -->
+    <div v-if="guesses.length > 0">
+      <span>Your guesses:</span>
+      <ul class="guess-list">
+        <li v-for="(g, index) in guesses" :key="index">{{ g }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          numberToGuess: 0,      // Requirement 3: the number the player must find
+          guess: null,           // the value typed in the input box
+          message: "Start guessing",
+          messageClass: "hint",
+          maxAttempts: 5,        // Requirement 4
+          attemptsLeft: 5,
+          guesses: [],           // Requirement 5
+          gameOver: false
+        };
+      },
+
+      // Start a new game as soon as the app is created
+      created() {
+        this.startOver();
+      },
+
+      methods: {
+        // Requirement 3: generate a random number between 1 and 100
+        generateRandomNumber() {
+          return Math.floor(Math.random() * 100) + 1;
+        },
+
+        checkGuess() {
+          if (this.gameOver) return;
+
+          // Simple validation - an invalid guess does not cost an attempt
+          if (this.guess === null || this.guess === "" ||
+              this.guess < 1 || this.guess > 100) {
+            this.message = "Please enter a number from 1 to 100.";
+            this.messageClass = "lose";
+            return;
+          }
+
+          // Record the guess and use up one attempt
+          this.guesses.push(this.guess);
+          this.attemptsLeft--;
+
+          if (this.guess === this.numberToGuess) {
+            this.message = "You got it!";
+            this.messageClass = "win";
+            this.gameOver = true;
+          } else if (this.attemptsLeft === 0) {
+            // Out of attempts: the game ends and reveals the answer
+            this.message = "Out of attempts. The number was " + this.numberToGuess + ".";
+            this.messageClass = "lose";
+            this.gameOver = true;
+          } else if (this.guess < this.numberToGuess) {
+            this.message = "Guess higher.";
+            this.messageClass = "hint";
+          } else {
+            this.message = "Guess lower.";
+            this.messageClass = "hint";
+          }
+        },
+
+        giveUp() {
+          this.message = "The number was " + this.numberToGuess + ".";
+          this.messageClass = "lose";
+          this.gameOver = true;
+        },
+
+        startOver() {
+          this.numberToGuess = this.generateRandomNumber();
+          this.guess = null;
+          this.message = "Start guessing";
+          this.messageClass = "hint";
+          this.attemptsLeft = this.maxAttempts;
+          this.guesses = [];
+          this.gameOver = false;
+        }
+      }
+    });
+
+    app.mount("#app");
+  </script>
+
+</body>
+</html>
