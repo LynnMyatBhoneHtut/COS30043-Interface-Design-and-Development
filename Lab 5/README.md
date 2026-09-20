@@ -37,7 +37,11 @@ server (not by double-clicking the file). From inside the `lab05` folder:
 python3 -m http.server 8080
 ```
 
-Then visit http://localhost:8080/ — or just use the Live Server extension in
+Then visit 
+
+https://mercury.swin.edu.au/cos30043/s105973835/Lab%205/#/
+
+or just use the Live Server extension in
 VS Code.
 
 ## Notes on the components
