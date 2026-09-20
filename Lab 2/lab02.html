@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 02 - Bootstrap Grid</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons: needed for the "Why Choose Us?" icons (Bootstrap 5 ships no icons) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <style>
+    /* Helper style to visualise grid columns (Parts 2 and 3 only) */
+    .grid-demo {
+      background-color: #e7f1ff;
+      border: 1px solid #b6d4fe;
+      padding: 12px;
+      margin-bottom: 10px;
+      text-align: center;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       PART 2. Containers, rows and columns
+       Plain col-* classes apply at ALL widths, so these never stack.
+       ============================================================ -->
+  <div class="container my-4">
+    <h2>Basic Grid</h2>
+
+    <div class="row">
+      <div class="col-6"><div class="grid-demo">col-6</div></div>
+      <div class="col-6"><div class="grid-demo">col-6</div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-4"><div class="grid-demo">col-4</div></div>
+      <div class="col-4"><div class="grid-demo">col-4</div></div>
+      <div class="col-4"><div class="grid-demo">col-4</div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"><div class="grid-demo">col-3</div></div>
+      <div class="col-9"><div class="grid-demo">col-9</div></div>
+    </div>
+
+    <!-- col with no number: Bootstrap splits the space equally -->
+    <div class="row">
+      <div class="col"><div class="grid-demo">col (auto)</div></div>
+      <div class="col"><div class="grid-demo">col (auto)</div></div>
+      <div class="col"><div class="grid-demo">col (auto)</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PART 3. Responsive breakpoints
+       12 wide by default -> 6 from 768px -> 4 from 992px.
+       ============================================================ -->
+  <div class="container my-4">
+    <h2>Responsive Breakpoints</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="grid-demo">col-12 col-md-6 col-lg-4</div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="grid-demo">col-12 col-md-6 col-lg-4</div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="grid-demo">col-12 col-md-6 col-lg-4</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- ============================================================
+       PART 4. Responsive page
+       ============================================================ -->
+
+  <!-- 4.1 Website title -->
+  <header class="bg-primary text-white text-center py-4">
+    <h1 class="mb-1">Kopi Labs</h1>
+    <p class="mb-0">Specialty coffee, roasted in Petaling Jaya</p>
+  </header>
+
+  <!-- 4.2 Description (2/3) + image (1/3), side by side from md up -->
+  <section class="container my-5">
+    <div class="row align-items-center">
+
+      <div class="col-12 col-md-8">
+        <h2>About Us</h2>
+        <p>
+          We source green beans directly from smallholder farms across Southeast Asia
+          and roast them in small batches every Tuesday and Friday. Nothing leaves the
+          roastery more than five days after it comes out of the drum.
+        </p>
+        <p class="mb-0">
+          Visit our tasting bar in Damansara Uptown, or order online and have your beans
+          delivered anywhere in Malaysia.
+        </p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <img src="https://media.xtra.com.my/2022/07/XH1G4016-kopi.jpg"
+             class="img-fluid rounded mt-3 mt-md-0"
+             alt="Coffee beans cooling in the roastery">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4.3 Six items: 1 column -> 2 columns (md) -> 3 columns (lg)
+       All six sit in ONE row; Bootstrap wraps them once 12 columns are used. -->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">Why Choose Us?</h2>
+
+    <div class="row g-4">
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-fire fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Roasted to Order</h5>
+            <p class="card-text">Your beans are roasted the same week they ship, never before.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-truck fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Free Local Delivery</h5>
+            <p class="card-text">No delivery charge on Klang Valley orders above RM80.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-geo-alt fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Traceable Sourcing</h5>
+            <p class="card-text">Every bag names the farm, the altitude and the harvest month.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-recycle fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Refill Programme</h5>
+            <p class="card-text">Bring your tin back and take RM5 off your next refill.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-mortarboard fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Free Brew Classes</h5>
+            <p class="card-text">Saturday morning sessions on pour-over, moka pot and espresso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <i class="bi bi-headset fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">Real People on Chat</h5>
+            <p class="card-text">Ask us what to buy and a roaster answers, usually within the hour.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4.4 Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p class="mb-0">&copy; 2026 Kopi Labs. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+</body>
+</html>

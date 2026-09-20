@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #dc3545;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dc3545;
+            padding-bottom: 10px;
+        }
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table th {
+            background-color: #dc3545;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+        .search-filters {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-group-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group-inline label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            cursor: pointer;
+        }
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-section h5 {
+            color: #dc3545;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .summary-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .summary-box h6 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+        .success-message {
+            color: #28a745;
+        }
+        input[type="text"],
+        input[type="password"],
+        select {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container-main">
+        <!-- Event Information Section -->
+        <div class="section">
+            <h2>Event Information</h2>
+            
+            <!-- Search Filters -->
+            <div class="search-filters">
+                <div class="form-group-inline">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="searchId">Event ID:</label>
+                        <input 
+                            type="text" 
+                            id="searchId" 
+                            v-model="filters.eventId" 
+                            class="form-control"
+                            placeholder="Search by Event ID"
+                        >
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="searchName">Event Name:</label>
+                        <input 
+                            type="text" 
+                            id="searchName" 
+                            v-model="filters.eventName" 
+                            class="form-control"
+                            placeholder="Search by Event Name"
+                        >
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="searchDuration">Duration (Hours):</label>
+                        <input 
+                            type="text" 
+                            id="searchDuration" 
+                            v-model="filters.duration" 
+                            class="form-control"
+                            placeholder="Search by Duration"
+                        >
+                    </div>
+                </div>
+
+                <!-- Category Filter -->
+                <div>
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600;">Category:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input 
+                                type="radio" 
+                                v-model="filters.category" 
+                                value="All"
+                            >
+                            All
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                v-model="filters.category" 
+                                value="Technology"
+                            >
+                            Technology
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                v-model="filters.category" 
+                                value="Business"
+                            >
+                            Business
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                v-model="filters.category" 
+                                value="Marketing"
+                            >
+                            Marketing
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                v-model="filters.category" 
+                                value="Finance"
+                            >
+                            Finance
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Table -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0" v-if="filteredEvents.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Event ID</th>
+                            <th>Event Name</th>
+                            <th>Category</th>
+                            <th>Duration (Hours)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="event in filteredEvents" :key="event.eventid">
+                            <td>{{ event.eventid }}</td>
+                            <td>{{ event.eventname }}</td>
+                            <td>{{ event.category }}</td>
+                            <td>{{ event.durationhour }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-else class="no-results">
+                    <p>No events found matching your criteria.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div class="section">
+            <h2>Event Registration Form</h2>
+
+            <!-- Login Information -->
+            <div class="form-section">
+                <h5>Login Information</h5>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        v-model="form.username" 
+                        class="form-control"
+                        placeholder="Enter username"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        v-model="form.password" 
+                        class="form-control"
+                        placeholder="Enter password"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                    <div class="d-flex align-items-start gap-2">
+                        <div style="flex: 1;">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                v-model="form.confirmPassword" 
+                                class="form-control"
+                                placeholder="Re-enter password"
+                            >
+                            <div v-if="form.password && form.confirmPassword && !passwordsMatch" class="error-message">
+                                ❌ Passwords do not match
+                            </div>
+                            <div v-else-if="form.password && form.confirmPassword && passwordsMatch" class="text-success" style="font-size: 0.875rem; margin-top: 5px;">
+                                ✓ Passwords match
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Selection -->
+            <div class="form-section">
+                <h5>Event Selection</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">Event Category:</label>
+                        <div class="radio-group" style="flex-direction: column; gap: 10px;">
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    v-model="form.category" 
+                                    value="Technology"
+                                >
+                                Technology
+                            </label>
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    v-model="form.category" 
+                                    value="Business"
+                                >
+                                Business
+                            </label>
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    v-model="form.category" 
+                                    value="Marketing"
+                                >
+                                Marketing
+                            </label>
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    v-model="form.category" 
+                                    value="Finance"
+                                >
+                                Finance
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="eventSelect" class="form-label" style="font-weight: 600;">Event Name:</label>
+                        <select 
+                            id="eventSelect" 
+                            v-model="form.selectedEvent" 
+                            class="form-select"
+                        >
+                            <option value="">-- Select an event --</option>
+                            <option 
+                                v-for="event in eventsByCategory" 
+                                :key="event.eventid" 
+                                :value="event.eventname"
+                            >
+                                {{ event.eventname }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div v-if="form.username || form.category || form.selectedEvent" class="summary-box">
+                <h6>📝 Registration Summary</h6>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li v-if="form.username"><strong>Username:</strong> {{ form.username }}</li>
+                    <li v-if="form.category"><strong>Category:</strong> {{ form.category }}</li>
+                    <li v-if="form.selectedEvent"><strong>Event Name:</strong> {{ form.selectedEvent }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        createApp({
+            setup() {
+                // Events data
+                const events = ref([
+                    {eventid: 'EVT10001', eventname: 'Tech Innovations Conference', category: 'Technology', durationhour: 8},
+                    {eventid: 'EVT10002', eventname: 'Startup Pitch Day', category: 'Business', durationhour: 6},
+                    {eventid: 'EVT10003', eventname: 'AI & Machine Learning Summit', category: 'Technology', durationhour: 10},
+                    {eventid: 'EVT10004', eventname: 'Cybersecurity Workshop', category: 'Technology', durationhour: 4},
+                    {eventid: 'EVT10005', eventname: 'Digital Marketing Bootcamp', category: 'Marketing', durationhour: 6},
+                    {eventid: 'EVT10006', eventname: 'Blockchain and Cryptocurrency', category: 'Finance', durationhour: 5},
+                    {eventid: 'EVT10007', eventname: 'Entrepreneurship Forum', category: 'Business', durationhour: 7},
+                    {eventid: 'EVT10008', eventname: 'Data Science Hackathon', category: 'Technology', durationhour: 12},
+                    {eventid: 'EVT10009', eventname: 'Leadership and Management Summit', category: 'Business', durationhour: 9},
+                    {eventid: 'EVT10010', eventname: 'E-commerce Strategies', category: 'Marketing', durationhour: 6},
+                    {eventid: 'EVT10011', eventname: 'AI for Business', category: 'Business', durationhour: 8},
+                    {eventid: 'EVT10012', eventname: 'IoT & Smart Devices Expo', category: 'Technology', durationhour: 7},
+                    {eventid: 'EVT10013', eventname: 'Brand Strategy and Growth', category: 'Marketing', durationhour: 5},
+                    {eventid: 'EVT10014', eventname: 'Investment and Wealth Management', category: 'Finance', durationhour: 6},
+                    {eventid: 'EVT10015', eventname: 'Financial Technology (FinTech) Summit', category: 'Finance', durationhour: 8},
+                    {eventid: 'EVT10016', eventname: 'AI Ethics and Regulations', category: 'Technology', durationhour: 4},
+                    {eventid: 'EVT10017', eventname: 'Business Analytics Workshop', category: 'Business', durationhour: 6},
+                    {eventid: 'EVT10018', eventname: 'SEO and Content Marketing', category: 'Marketing', durationhour: 7},
+                    {eventid: 'EVT10019', eventname: 'Cryptocurrency Investment Strategies', category: 'Finance', durationhour: 9},
+                    {eventid: 'EVT10020', eventname: 'Social Media Marketing Trends', category: 'Marketing', durationhour: 5}
+                ]);
+
+                // Filter state
+                const filters = ref({
+                    eventId: '',
+                    eventName: '',
+                    duration: '',
+                    category: 'All'
+                });
+
+                // Form state
+                const form = ref({
+                    username: '',
+                    password: '',
+                    confirmPassword: '',
+                    category: '',
+                    selectedEvent: ''
+                });
+
+                // Computed: Filtered events for table
+                const filteredEvents = computed(() => {
+                    return events.value.filter(event => {
+                        const matchId = event.eventid.toLowerCase().includes(filters.value.eventId.toLowerCase());
+                        const matchName = event.eventname.toLowerCase().includes(filters.value.eventName.toLowerCase());
+                        const matchDuration = filters.value.duration === '' || 
+                                            event.durationhour.toString() === filters.value.duration;
+                        const matchCategory = filters.value.category === 'All' || 
+                                            event.category === filters.value.category;
+                        
+                        return matchId && matchName && matchDuration && matchCategory;
+                    });
+                });
+
+                // Computed: Events filtered by selected category in form
+                const eventsByCategory = computed(() => {
+                    if (!form.value.category) return [];
+                    return events.value.filter(event => event.category === form.value.category);
+                });
+
+                // Computed: Check if passwords match
+                const passwordsMatch = computed(() => {
+                    return form.value.password === form.value.confirmPassword;
+                });
+
+                return {
+                    events,
+                    filters,
+                    form,
+                    filteredEvents,
+                    eventsByCategory,
+                    passwordsMatch
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kopi Kaki logo">
+  <rect width="64" height="64" rx="14" fill="#0E3A2F"/>
+  <!-- steam -->
+  <path d="M25 17c3-3 0-5 0-7M32 17c3-3 0-5 0-7M39 17c3-3 0-5 0-7"
+        fill="none" stroke="#E8A317" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- saucer -->
+  <ellipse cx="32" cy="49" rx="20" ry="4.5" fill="#E8A317"/>
+  <!-- cup -->
+  <path d="M14 24h32v10a16 16 0 0 1-32 0z" fill="#FBFBF7"/>
+  <!-- cup stripe -->
+  <rect x="14" y="29" width="32" height="4" fill="#0E3A2F"/>
+  <!-- handle -->
+  <path d="M46 27h4a6 6 0 0 1 0 12h-2" fill="none" stroke="#FBFBF7" stroke-width="3.4" stroke-linecap="round"/>
+</svg>

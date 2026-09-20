@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- lang="en" tells screen readers which language to pronounce. Lighthouse checks for this. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A beginner's guide to reading a kopitiam order board and ordering coffee like a regular.">
+  <title>Kopi Kaki — How to order at a kopitiam</title>
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Karla:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ HEADER: logo + navigation bar ============ -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+
+      <a class="brand" href="#main">
+        <!-- The logo is inline SVG so it stays crisp at any size and needs no extra HTTP request.
+             aria-hidden + the text label means a screen reader reads "Kopi Kaki" once, not twice. -->
+        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect width="64" height="64" rx="14" fill="#0E3A2F"/>
+          <path d="M25 17c3-3 0-5 0-7M32 17c3-3 0-5 0-7M39 17c3-3 0-5 0-7"
+                fill="none" stroke="#E8A317" stroke-width="2.6" stroke-linecap="round"/>
+          <ellipse cx="32" cy="49" rx="20" ry="4.5" fill="#E8A317"/>
+          <path d="M14 24h32v10a16 16 0 0 1-32 0z" fill="#FBFBF7"/>
+          <rect x="14" y="29" width="32" height="4" fill="#0E3A2F"/>
+          <path d="M46 27h4a6 6 0 0 1 0 12h-2" fill="none" stroke="#FBFBF7" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__name">Kopi Kaki</span>
+      </a>
+
+      <!-- aria-label distinguishes this nav from the one in the footer -->
+      <nav class="nav" aria-label="Main">
+        <ul class="nav__list">
+          <li><a href="#cup">The cup</a></li>
+          <li><a href="#decoder">Order decoder</a></li>
+          <li><a href="#steps">How to order</a></li>
+          <li><a href="#visit">Visit us</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main id="main">
+
+    <!-- ---- Hero: the page title, plus the signature "order chit" ---- -->
+    <section class="hero wrap" aria-labelledby="page-title">
+      <div class="hero__text">
+        <p class="eyebrow">Kuala Lumpur &middot; est. 1962</p>
+        <h1 id="page-title">Four words get you the exact coffee you want.</h1>
+        <p class="lede">
+          A kopitiam order is not a sentence, it is a code. Each word switches one thing:
+          the milk, the sugar, the ice. Learn the four switches and you can order
+          anything on the board without pointing at it.
+        </p>
+      </div>
+
+      <!-- The chit is a description list: each term is a code word, each description is its meaning.
+           <dl> is the correct semantic element for term/definition pairs. -->
+      <div class="chit">
+        <p class="chit__head">Order&nbsp;chit&nbsp;&mdash;&nbsp;table&nbsp;7</p>
+        <p class="chit__code">kopi C kosong peng</p>
+        <dl class="chit__key">
+          <div class="chit__row"><dt>kopi</dt><dd>coffee</dd></div>
+          <div class="chit__row"><dt>C</dt><dd>evaporated milk</dd></div>
+          <div class="chit__row"><dt>kosong</dt><dd>no sugar</dd></div>
+          <div class="chit__row"><dt>peng</dt><dd>iced</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ---- Paragraph + image ---- -->
+    <section id="cup" class="section wrap">
+      <h2>What is actually in the cup</h2>
+      <div class="split">
+        <div>
+          <p>
+            Kopitiam coffee is not espresso. The beans are wok-roasted with sugar and a little
+            margarine until they turn almost black, which is where the smoky, slightly bitter
+            edge comes from. The grounds are then steeped in a long cloth filter, poured back and
+            forth between two pots to keep the temperature even, and served over whatever
+            combination of milk and sugar you asked for.
+          </p>
+          <p>
+            The default cup already contains condensed milk. Everything else on the board is a
+            modification of that default, which is why the order codes are so short.
+          </p>
+        </div>
+
+        <!-- <figure> groups the image with its caption. The alt text describes the content of the
+             image for people who cannot see it; the caption adds information for everyone. -->
+        <figure class="figure">
+          <img src="images/kopi-toast.svg" width="640" height="400"
+               alt="A cup of kopi on a saucer next to charcoal-grilled kaya toast and two half-boiled eggs, on a marble table.">
+          <figcaption>The standard order: kopi, kaya toast, two half-boiled eggs.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ---- Table ---- -->
+    <section id="decoder" class="section wrap">
+      <h2>Order decoder</h2>
+      <p>Mix and match the modifiers. The drink name always comes first.</p>
+
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="decoder-caption">
+        <table>
+          <!-- A <caption> names the table for screen reader users -->
+          <caption id="decoder-caption">Common kopitiam order codes and what they mean</caption>
+          <thead>
+            <tr>
+              <!-- scope tells assistive tech that these headers label their whole column -->
+              <th scope="col">Code</th>
+              <th scope="col">Literal meaning</th>
+              <th scope="col">What arrives</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">kopi</th>
+              <td>coffee</td>
+              <td>Coffee with sweetened condensed milk</td>
+            </tr>
+            <tr>
+              <th scope="row">kopi O</th>
+              <td>"O" from Hokkien <i lang="nan">o</i>, black</td>
+              <td>Black coffee with sugar</td>
+            </tr>
+            <tr>
+              <th scope="row">kopi C</th>
+              <td>"C" from Hainanese <i lang="nan">sian</i>, fresh</td>
+              <td>Coffee with evaporated milk and sugar</td>
+            </tr>
+            <tr>
+              <th scope="row">kosong</th>
+              <td>empty</td>
+              <td>Adds nothing &mdash; removes the sugar</td>
+            </tr>
+            <tr>
+              <th scope="row">peng</th>
+              <td>ice</td>
+              <td>Served iced, in a glass</td>
+            </tr>
+            <tr>
+              <th scope="row">gau</th>
+              <td>thick</td>
+              <td>Extra strong, less water</td>
+            </tr>
+            <tr>
+              <th scope="row">teh tarik</th>
+              <td>pulled tea</td>
+              <td>Milk tea poured between two pots until foamy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- List ---- -->
+    <section id="steps" class="section wrap">
+      <h2>How to order like a regular</h2>
+      <!-- An ordered list, because these steps genuinely happen in sequence -->
+      <ol class="steps">
+        <li>
+          <h3>Find a table first</h3>
+          <p>Sit down before you order. The drinks person comes to you.</p>
+        </li>
+        <li>
+          <h3>Say the drink, then the modifiers</h3>
+          <p>Always in that order: <span class="mono">teh</span>, then <span class="mono">C</span>, then <span class="mono">kosong</span>, then <span class="mono">peng</span>.</p>
+        </li>
+        <li>
+          <h3>Order the food separately</h3>
+          <p>Drinks and food are usually run by different stalls under the same roof, with separate bills.</p>
+        </li>
+        <li>
+          <h3>Pay when the drink lands</h3>
+          <p>Cash is handed over at the table, not at a counter. Keep small notes.</p>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="visit" class="site-footer">
+    <div class="wrap footer-grid">
+
+      <div>
+        <h2 class="footer__title">Kopi Kaki</h2>
+        <p class="footer__text">Jalan Sultan 14, 50000 Kuala Lumpur</p>
+        <p class="footer__text">
+          <a href="tel:+60312345678">+60 3 1234 5678</a><br>
+          <a href="mailto:hello@kopikaki.example">hello@kopikaki.example</a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="footer__title">Opening hours</h2>
+        <ul class="hours">
+          <li><span>Mon  Fri</span> <span>6:30am  6:00pm</span></li>
+          <li><span>Saturday</span> <span>6:30am  9:00pm</span></li>
+          <li><span>Sunday</span> <span>7:00am  2:00pm</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer__title">Weekly special</h2>
+        <p class="footer__text">One email each Friday with the weekend's kuih list.</p>
+        <!-- Every input has a real <label> connected by for/id. This is the single most common
+             accessibility failure in forms, and the one AChecker flags first. -->
+        <form class="signup" action="#" method="post">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email"
+                 placeholder="you@example.com" required>
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="wrap footer-bottom">
+      <p> 2026 Kopi Kaki. Built for COS30043 Lab 01.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="#main">Back to top</a></li>
+          <li><a href="#decoder">Order decoder</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
