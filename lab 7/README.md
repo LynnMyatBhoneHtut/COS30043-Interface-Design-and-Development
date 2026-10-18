@@ -20,13 +20,5 @@ npm install
 npm run dev
 ```
 
-## Build and deploy to Mercury
-```
-npm run build
-```
-Upload everything **inside** the `dist` folder (index.html, assets, images, favicon.svg)
-to a folder on Mercury, e.g. `lab07`, then submit that folder's URL on Canvas.
-`base: './'` in `vite.config.js` and hash routing (`#/travel`) let it work from any folder.
-
-Images in `public/images` are simple drawn placeholders – replace any of them with a real
-photo using the same file name if you like.
+## Here is Mercury Link
+https://mercury.swin.edu.au/cos30043/s105973835/Lab%207/#/
