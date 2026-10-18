@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Mount Fuji",
+    "country": "Japan",
+    "category": "Mountain",
+    "description": "Japan's highest mountain at 3,776 m, famous for its snow-capped cone and summer climbing season.",
+    "image": "images/fuji.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Swiss Alps",
+    "country": "Switzerland",
+    "category": "Mountain",
+    "description": "Snowy peaks, alpine villages and scenic train rides, great for skiing and hiking.",
+    "image": "images/alps.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Mount Kinabalu",
+    "country": "Malaysia",
+    "category": "Mountain",
+    "description": "The highest peak in Malaysia, located in Sabah, popular for its two-day sunrise summit climb.",
+    "image": "images/kinabalu.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Great Barrier Reef",
+    "country": "Australia",
+    "category": "Ocean",
+    "description": "The world's largest coral reef system, perfect for snorkelling and scuba diving.",
+    "image": "images/reef.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Maldives",
+    "country": "Maldives",
+    "category": "Ocean",
+    "description": "Coral islands in the Indian Ocean with clear turquoise water and overwater villas.",
+    "image": "images/maldives.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Bora Bora",
+    "country": "French Polynesia",
+    "category": "Ocean",
+    "description": "A tropical island in the South Pacific with a calm blue lagoon and beautiful sunsets.",
+    "image": "images/borabora.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Pantai Cenang",
+    "country": "Malaysia",
+    "category": "Beach",
+    "description": "The most popular beach in Langkawi, with soft white sand, water sports and seaside cafes.",
+    "image": "images/langkawi.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Kuta Beach",
+    "country": "Indonesia",
+    "category": "Beach",
+    "description": "A lively beach in Bali known for surfing lessons and golden sunsets.",
+    "image": "images/bali.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Patong Beach",
+    "country": "Thailand",
+    "category": "Beach",
+    "description": "Phuket's busiest beach, with warm water by day and lively nightlife after dark.",
+    "image": "images/phuket.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Kuala Lumpur",
+    "country": "Malaysia",
+    "category": "City",
+    "description": "Malaysia's capital, home to the Petronas Twin Towers, street food and shopping malls.",
+    "image": "images/kl.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Paris",
+    "country": "France",
+    "category": "City",
+    "description": "The city of the Eiffel Tower and the Louvre, famous for art, fashion and cafes.",
+    "image": "images/paris.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Tokyo",
+    "country": "Japan",
+    "category": "City",
+    "description": "A busy modern city mixing neon lights, ancient temples and amazing food.",
+    "image": "images/tokyo.jpg"
+  }
+]

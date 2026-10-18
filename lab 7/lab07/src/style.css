@@ -1,0 +1,40 @@
+/* Keep the footer at the bottom of the page */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Carousel images: same height for every slide */
+.carousel-img {
+  height: 380px;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Destination card images */
+.card-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* About page image */
+.about-img {
+  max-height: 260px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Small screens (phones): smaller carousel */
+@media (max-width: 767.98px) {
+  .carousel-img {
+    height: 220px;
+  }
+}
