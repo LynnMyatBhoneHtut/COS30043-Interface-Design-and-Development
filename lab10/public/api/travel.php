@@ -54,19 +54,19 @@ try {
     reply(['error' => 'Only GET and POST are allowed.'], 405);
   }
 
-  // The app sends JSON in the request body
-  $input  = json_decode(file_get_contents('php://input'), true) ?: [];
-  $action = $input['action'] ?? '';
-  $id     = (int) ($input['id'] ?? 0);
+    // The app sends JSON in the request body
+  $input  = json_decode(file_get_contents('php://input'), true);
+  if (!is_array($input)) $input = [];
 
-  $d = [
-    'name'        => trim($input['name'] ?? ''),
-    'country'     => trim($input['country'] ?? ''),
-    'category'    => trim($input['category'] ?? ''),
-    'description' => trim($input['description'] ?? ''),
-    'rating'      => $input['rating'] ?? ''
-  ];
+  // isset() instead of ?? so this also runs on older PHP (Mercury)
+  $action = isset($input['action']) ? $input['action'] : '';
+  $id     = isset($input['id']) ? (int) $input['id'] : 0;
 
+  $d = [];
+  foreach (['name', 'country', 'category', 'description', 'rating'] as $field) {
+    $d[$field] = isset($input[$field]) ? trim((string) $input[$field]) : '';
+  }
+  
   // ---------- CREATE ----------
   if ($action === 'create') {
     $error = checkDestination($d, $CATEGORIES);
