@@ -1,5 +1,3 @@
--- Lab 10 - travel table made from travel.csv
--- Run this in phpMyAdmin (SQL tab) or the mysql command line on Mercury.
 
 DROP TABLE IF EXISTS travel;
 
@@ -9,11 +7,10 @@ CREATE TABLE travel (
   country     VARCHAR(60)  NOT NULL,
   category    VARCHAR(30)  NOT NULL,
   description VARCHAR(255) NOT NULL,
-  rating      DECIMAL(2,1) NOT NULL,                 -- e.g. 4.8
+  rating      DECIMAL(2,1) NOT NULL,               
   PRIMARY KEY (id)
 );
 
--- The 15 rows from travel.csv
 INSERT INTO travel (name, country, category, description, rating) VALUES
 ('Bondi Beach', 'Australia', 'Ocean', 'Popular beach in Sydney known for surfing and coastal walks.', 4.8),
 ('Mount Fuji', 'Japan', 'Mountain', 'Iconic volcano and Japan''s highest mountain.', 4.9),

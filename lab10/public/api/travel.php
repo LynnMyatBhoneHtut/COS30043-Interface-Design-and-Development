@@ -1,30 +1,18 @@
 <?php
-/*
- * Lab 10 - the only file that talks to MySQL.
- * The Vue app calls it with fetch() and always gets JSON back.
- *
- *   GET                                  -> all destinations       (Read)
- *   POST { action: 'create', ... }       -> add a destination      (Create)
- *   POST { action: 'update', id, ... }   -> change a destination   (Update)
- *   POST { action: 'delete', id }        -> remove a destination   (Delete)
- */
 
 header('Content-Type: application/json');
 require_once 'settings.php';
 
-// Make mysqli throw an error we can catch (same on PHP 7 and PHP 8)
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $CATEGORIES = ['Beach', 'City', 'Mountain', 'Ocean'];
 
-// Send a JSON answer and stop
 function reply($data, $status = 200) {
   http_response_code($status);
   echo json_encode($data);
   exit;
 }
 
-// Check the values sent from the form. Returns an error message, or '' if all good.
 function checkDestination($d, $categories) {
   if ($d['name'] === '' || strlen($d['name']) > 100) return 'Name is required (max 100 characters).';
   if ($d['country'] === '' || strlen($d['country']) > 60) return 'Country is required (max 60 characters).';
@@ -66,7 +54,7 @@ try {
   foreach (['name', 'country', 'category', 'description', 'rating'] as $field) {
     $d[$field] = isset($input[$field]) ? trim((string) $input[$field]) : '';
   }
-  
+
   // ---------- CREATE ----------
   if ($action === 'create') {
     $error = checkDestination($d, $CATEGORIES);
